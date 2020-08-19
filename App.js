@@ -65,7 +65,11 @@ const App = () => {
                 <Text style={styles.sectionDescription}>
                   <DebugInstructions />
                 </Text>
-                <Button onPress={() => alert('Clicked!')} title="Click here!" />
+                <Button
+                  testID="button"
+                  onPress={() => alert('Clicked!')}
+                  title="Click here!"
+                />
               </Slide>
               <Slide>
                 <Text style={styles.sectionTitle}>Learn More</Text>

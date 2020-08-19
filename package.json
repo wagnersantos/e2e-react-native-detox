@@ -1,11 +1,11 @@
 {
   "name": "testReactNative",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "react-native start",
     "test": "jest",
-    "e2e:test": "detox test -c ios.release",
+    "e2e:test": "detox test -c android.emu.debug",
     "e2e:build": "detox build -c ios.release",
     "e2e:ci": "npm run e2e:build && npm run e2e:test -- --cleanup",
     "lint": "eslint ."
@@ -21,7 +21,7 @@
     "@babel/runtime": "^7.5.0",
     "@react-native-community/eslint-config": "^0.0.3",
     "babel-jest": "^24.1.0",
-    "detox": "^14.3.1",
+    "detox": "^17.2.0",
     "eslint": "5.16.0",
     "eslint-plugin-detox": "^1.0.0",
     "eslint-plugin-jest": "^22.17.0",
@@ -35,11 +35,19 @@
   "detox": {
     "test-runner": "jest",
     "configurations": {
-      "ios.release": {
-        "binaryPath": "./ios/build/Build/Products/Release-iphonesimulator/testReactNative.app",
-        "build": "xcodebuild -workspace ios/testReactNative.xcworkspace -configuration release -scheme testReactNative -sdk iphonesimulator -derivedDataPath ios/build",
-        "type": "ios.simulator",
-        "name": "iPhone X"
+      "android.emu.debug": {
+        "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
+        "build": "cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=debug",
+        "type": "android.attached",
+        "name": "192.168.56.101:5555"
+      },
+      "android.emu.release": {
+        "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
+        "build": "cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
+        "type": "android.emulator",
+        "device": {
+          "avdName": "Pixel_API_28"
+        }
       }
     }
   }

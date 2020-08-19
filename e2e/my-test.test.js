@@ -26,8 +26,9 @@ describe('Example', () => {
     await element(by.id('slides')).swipe('left');
     await expect(element(by.text('Debug'))).toBeVisible();
 
-    await element(by.text('Click here!')).tap();
+    await element(by.id('button')).tap();
     await expect(element(by.text('Clicked!'))).toBeVisible();
+    await element(by.text('OK')).tap();
   });
 
   it('should render "Learn More" and change text in the fourth slide', async () => {
